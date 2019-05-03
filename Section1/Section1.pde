@@ -48,7 +48,7 @@ class Visualizer {
       else{
         fill(0, 255, 0);
       }
-      rect(40 * i + 20, 120, 40, h % 100); 
+      rect(40 * i + 20, 120, 40, -(h % 100)); 
     }
 
 
