@@ -8,13 +8,22 @@ Visualizer v;
  */
 class Visualizer {
   float x, y;
+  int num_bars;
   float [] values;
   float [] speeds;
-  Visualizer(float x, float y) {
+  Visualizer(float x, float y, int bars) {
+    // keeps bars within 0 to 40 (by adding finding the absolute value of bars mod 41, producing an int between 0 and 40, and then adding one if bars is equal to zero)
+    bars = (int)abs(bars % 41);
+    if (bars == 0){
+      num_bars = 1;
+    }
+    else{
+      num_bars = bars;
+    }
     this.x = x;
     this.y = y;
-    values = new float[10];
-    speeds = new float[10];
+    values = new float[num_bars];
+    speeds = new float[num_bars];
     for (int i = 0; i < values.length; i++) {
       values[i] = random(-99, 99);
       speeds[i] = random(2);
@@ -40,14 +49,14 @@ class Visualizer {
 
     //???WRITE THIS METHOD FIRST!!!
     
-    for (int i = 0; i < 10; i++){
+    for (int i = 0; i < values.length; i++){
       if (values[i] < 0){
         fill(255, 0, 0);
       }
       else{
         fill(0, 255, 0);
       }
-      rect(x + (400 / values.length) * i, y + MAX_VALUE, (400 / values.length), -values[i]); 
+      rect(x + (400 / num_bars) * i, y + MAX_VALUE, (400 / num_bars), -values[i]); 
     }
 
 
@@ -77,7 +86,7 @@ class Visualizer {
 
 void setup() {
   size(600, 500);
-  v = new Visualizer(20, 20);
+  v = new Visualizer(20, 20, 10);
 }
 void draw() {
   background(255);
