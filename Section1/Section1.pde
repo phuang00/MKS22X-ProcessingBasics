@@ -50,11 +50,17 @@ class Visualizer {
     //???WRITE THIS METHOD FIRST!!!
     
     for (int i = 0; i < values.length; i++){
-      if (values[i] < 0){
-        fill(255, 0, 0);
+      if (values[i] > 50){
+        fill(0, 255, 0);
+      }
+      else if (values[i] > 0){
+        fill(255, 255, 0);
+      }
+      else if (values[i] > -50){
+        fill(255, 168, 0);
       }
       else{
-        fill(0, 255, 0);
+        fill(255, 0, 0);
       }
       rect(x + (400 / num_bars) * i, y + MAX_VALUE, (400 / num_bars), -values[i]); 
     }
