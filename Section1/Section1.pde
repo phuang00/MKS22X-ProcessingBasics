@@ -8,10 +8,11 @@ Visualizer v;
  */
 class Visualizer {
   float x, y;
+  float w, h;
   int num_bars;
   float [] values;
   float [] speeds;
-  Visualizer(float x, float y, int bars) {
+  Visualizer(float x, float y, float w, float h, int bars) {
     // keeps bars within 0 to 40 (by adding finding the absolute value of bars mod 41, producing an int between 0 and 40, and then adding one if bars is equal to zero)
     bars = (int)abs(bars % 41);
     if (bars == 0){
@@ -20,6 +21,10 @@ class Visualizer {
     else{
       num_bars = bars;
     }
+    this.w = w;
+    this.h = h;
+    MAX_VALUE = (int)h/2;
+    MIN_VALUE = (int)-h/2;
     this.x = x;
     this.y = y;
     values = new float[num_bars];
@@ -35,12 +40,12 @@ class Visualizer {
     //You can assume 10, but it would be even better 
     //if you could modify it to be larger increments.
     fill(255);
-    rect(x, y, 400, 200);
+    rect(x, y, w, h);
     //This is a 200x400 box.
     //The width of the visualizer is 400! This rect is the border
 
     //the line is the 0 y-value, the top is 100, the bottom is -100
-    line(x, y+100, x+400, y+100);
+    line(x, y+ (h/2), x+ w, y+ (h/2));
 
     //You need to use a loop. You need to make the HEIGHT of the bars 
     //the values in the array.
@@ -50,19 +55,19 @@ class Visualizer {
     //???WRITE THIS METHOD FIRST!!!
     
     for (int i = 0; i < values.length; i++){
-      if (values[i] > 50){
+      if (values[i] > MAX_VALUE/2){
         fill(0, 255, 0);
       }
       else if (values[i] > 0){
         fill(255, 255, 0);
       }
-      else if (values[i] > -50){
+      else if (values[i] > MIN_VALUE/2){
         fill(255, 168, 0);
       }
       else{
         fill(255, 0, 0);
       }
-      rect(x + (400 / num_bars) * i, y + MAX_VALUE, (400 / num_bars), -values[i]); 
+      rect(x + (w / num_bars) * i, y + MAX_VALUE, (w / num_bars), -values[i]); 
     }
 
 
@@ -92,7 +97,7 @@ class Visualizer {
 
 void setup() {
   size(600, 500);
-  v = new Visualizer(20, 20, 10);
+  v = new Visualizer(20, 20, 400, 200, 10);
 }
 void draw() {
   background(255);
